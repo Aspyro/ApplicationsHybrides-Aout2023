@@ -3,4 +3,8 @@
     <string name="hello_world">Hello World !</string>
     <string name="btn_toChild">Vers Activité enfant !</string>
     <string name="btn_formValidation">Enregistrer</string>
+    <string name="tview_inscriptionAdmin">Inscription Administrateur :</string>
+    <string name="tview_inscription">Inscription :</string>
+    <string name="tview_email">Email :</string>
+    <string name="tview_password">Mot de passe :</string>
 </resources>
