@@ -3,4 +3,5 @@
     <dimen name="margin_side">25dp</dimen>
     <dimen name="margin_top">15dp</dimen>
     <dimen name="text_formTitle_size">20sp</dimen>
+    <dimen name="listing_margin_side">0dp</dimen>
 </resources>
