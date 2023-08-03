@@ -15,6 +15,10 @@
         android:paddingTop="@dimen/listing_margin_side"
         android:paddingBottom="@dimen/listing_margin_side">
 
+        <ListView
+            android:id="@+id/lv_listingProduit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
