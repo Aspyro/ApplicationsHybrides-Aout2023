@@ -1,6 +1,7 @@
 package dev.aspyro.androidapplication
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -14,7 +15,11 @@ class MainActivity : Activity() {
 
     fun onMainClickManager(v : View) {
         when (v.id) {
-            R.id.btn_mainToChild -> Toast.makeText(applicationContext,"Direction activité enfant", Toast.LENGTH_LONG).show()
+            R.id.btn_mainToChild -> {
+                Toast.makeText(applicationContext,"Direction activité enfant", Toast.LENGTH_LONG).show()
+                intent = Intent(this, AdminFormActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 
