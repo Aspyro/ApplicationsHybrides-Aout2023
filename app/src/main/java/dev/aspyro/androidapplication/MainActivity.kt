@@ -3,11 +3,19 @@ package dev.aspyro.androidapplication
 import android.app.Activity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 
 class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+    }
+
+    fun onMainClickManager(v : View) {
+        when (v.id) {
+            R.id.btn_mainToChild -> Toast.makeText(applicationContext,"Direction activité enfant", Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onStart() {
