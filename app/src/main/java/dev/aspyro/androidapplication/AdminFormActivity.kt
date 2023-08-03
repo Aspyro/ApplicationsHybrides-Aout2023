@@ -27,6 +27,8 @@ class AdminFormActivity : Activity() {
                     "Email : " + email_edit.text + "\nMot de passe : " + password_edit.text,
                     Toast.LENGTH_LONG)
                 .show()
+                intent = Intent(this, ListingActivity::class.java)
+                startActivity(intent)
             }
             //Toast.makeText(applicationContext,"Direction activité enfant", Toast.LENGTH_LONG).show()
         }
