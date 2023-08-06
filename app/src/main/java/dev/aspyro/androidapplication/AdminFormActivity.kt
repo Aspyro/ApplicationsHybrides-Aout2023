@@ -3,15 +3,16 @@ package dev.aspyro.androidapplication
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.Log
 import android.view.View
 import android.widget.EditText
-import android.widget.Toast
 
 class AdminFormActivity : Activity() {
 
     lateinit var email_edit : EditText
     lateinit var password_edit : EditText
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_form)
@@ -23,10 +24,14 @@ class AdminFormActivity : Activity() {
     fun onAdminFormClickManager(v : View) {
         when (v.id) {
             R.id.btn_adminFormValidation -> {
-                Toast.makeText(applicationContext,
-                    "Email : " + email_edit.text + "\nMot de passe : " + password_edit.text,
-                    Toast.LENGTH_LONG)
-                .show()
+
+                val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+                val editor = sharedPreferences.edit()
+
+                editor.putString("email_user", email_edit.text.toString())
+                editor.apply()
+
+
                 intent = Intent(this, ListingActivity::class.java)
                 startActivity(intent)
             }

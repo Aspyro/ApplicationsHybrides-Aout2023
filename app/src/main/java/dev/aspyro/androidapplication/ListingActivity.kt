@@ -2,9 +2,11 @@ package dev.aspyro.androidapplication
 
 import android.app.Activity
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import android.widget.Toast
 
 class ListingActivity : Activity() {
 
@@ -20,6 +22,16 @@ class ListingActivity : Activity() {
         var adapteur = ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, tabdata)
         val listView : ListView = findViewById(R.id.lv_listingProduit)
         listView.adapter = adapteur
+
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+
+        if(sharedPreferences.all.isNotEmpty()) {
+            val str = sharedPreferences.getString("email_user", "")
+            Toast.makeText(applicationContext,
+                str,
+                Toast.LENGTH_LONG)
+                .show()
+        }
 
     }
 
