@@ -2,11 +2,17 @@ package dev.aspyro.androidapplication
 
 import android.app.Activity
 import android.content.Intent
+import android.os.AsyncTask
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
+import androidx.room.Room
+import dev.aspyro.androidapplication.databaseroom.AppDatabase
+import dev.aspyro.androidapplication.databaseroom.User
+import dev.aspyro.androidapplication.databaseroom.UserRecord
 
 class UserFormActivity : Activity() {
 
@@ -31,9 +37,34 @@ class UserFormActivity : Activity() {
                 editor.putString("email_user", email_edit.text.toString())
                 editor.apply()
 
+                writeUser()
+
                 intent = Intent(this, ListingActivity::class.java)
                 startActivity(intent)
             }
+        }
+    }
+
+    private fun writeUser() {
+
+        val u = User(0, email_edit.text.toString(), password_edit.text.toString())
+        Log.i("Database attempt", "Tried to create a user : ${u.toString()}")
+        Toast.makeText(this, u.toString(), Toast.LENGTH_LONG).show()
+
+        AsyncTask.execute {
+            val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "MyDatabase.db")
+                .build()
+
+            val dao = db.userDao()
+            try {
+                val registeredUser = UserRecord(u.id, u.email, u.pwd)
+                dao.insertUser(registeredUser)
+                Log.i("test", "try catch dans async")
+            }
+            catch (e: Exception) {
+                Log.i("ERROR", e.message.toString())
+            }
+
         }
     }
 
