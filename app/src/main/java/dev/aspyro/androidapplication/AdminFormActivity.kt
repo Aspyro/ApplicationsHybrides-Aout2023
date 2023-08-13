@@ -13,15 +13,15 @@ import dev.aspyro.androidapplication.databaseroom.UserRecord
 
 class AdminFormActivity : Activity() {
 
-    lateinit var email_edit : EditText
-    lateinit var password_edit : EditText
+    private lateinit var emailEdit : EditText
+    private lateinit var passwordEdit : EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_form)
 
-        email_edit = findViewById(R.id.et_email_inscriptionAdmin)
-        password_edit = findViewById(R.id.et_password_inscriptionAdmin)
+        emailEdit = findViewById(R.id.et_email_inscriptionAdmin)
+        passwordEdit = findViewById(R.id.et_password_inscriptionAdmin)
     }
 
     fun onAdminFormClickManager(v : View) {
@@ -39,10 +39,10 @@ class AdminFormActivity : Activity() {
     private fun writeAdmin() {
 
         // Récupération des informations
-        val adminEmail = email_edit.text.toString()
-        val adminpassword = password_edit.text.toString()
+        val adminEmail = emailEdit.text.toString()
+        val adminpassword = passwordEdit.text.toString()
 
-        Log.i("Database attempt", "Trying to create an Admin :\n$adminEmail - $adminpassword")
+        Log.i("Admin Creation Form", "Trying to create an Admin :\n$adminEmail - $adminpassword")
 
         // Création de l'administrateur dans la base de données
         AsyncTask.execute{
@@ -53,38 +53,38 @@ class AdminFormActivity : Activity() {
             try {
                 val registeredAdmin = UserRecord(0, adminEmail, adminpassword, 10)
                 dao.insertUser(registeredAdmin)
-                Log.i("Database attempt", "Admin created")
+                Log.i("Admin Creation Form", "Admin created")
             }
             catch (e: Exception) {
-                Log.i("ERROR", e.message.toString())
+                Log.i("Admin Creation Form", e.message.toString())
             }
         }
     }
 
     override fun onStart() {
         super.onStart()
-        Log.i("AdminFormActivity", "Méthode OnStart")
+        Log.i("Admin Creation Form", "Méthode OnStart")
     }
     override fun onRestart() {
         super.onRestart()
-        Log.i("AdminFormActivity", "Méthode onRestart")
+        Log.i("Admin Creation Form", "Méthode onRestart")
     }
     override fun onResume() {
         super.onResume()
-        Log.i("AdminFormActivity", "Méthode onResume")
+        Log.i("Admin Creation Form", "Méthode onResume")
     }
     override fun onPause() {
         super.onPause()
-        Log.i("AdminFormActivity", "Méthode onPause")
+        Log.i("Admin Creation Form", "Méthode onPause")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.i("AdminFormActivity", "Méthode OnDestroy")
+        Log.i("Admin Creation Form", "Méthode OnDestroy")
     }
 
     override fun onStop() {
         super.onStop()
-        Log.i("AdminFormActivity", "Méthode OnStop")
+        Log.i("Admin Creation Form", "Méthode OnStop")
     }
 }
