@@ -23,27 +23,30 @@ class MainActivity : Activity() {
                     apply()
                 }
             }
-            else showUserForm()
         }
     }
 
-    private fun showUserForm() {
-        intent = Intent(this, UserFormActivity::class.java)
-        startActivity(intent)
-    }
-
     private fun showAdminForm() {
+        Toast.makeText(applicationContext,"Vers le formulaire d'inscription ADMIN", Toast.LENGTH_LONG).show()
         intent = Intent(this, AdminFormActivity::class.java)
         startActivity(intent)
     }
 
+    private fun showUserForm() {
+        Toast.makeText(applicationContext,"Vers le formulaire d'inscription", Toast.LENGTH_LONG).show()
+        intent = Intent(this, UserFormActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun showConnectionForm() {
+        Toast.makeText(applicationContext,"Vers le formulaire de connexion", Toast.LENGTH_LONG).show()
+        intent = Intent(this, ConnectionActivity::class.java)
+        startActivity(intent)
+    }
     fun onMainClickManager(v : View) {
         when (v.id) {
-            R.id.btn_mainToChild -> {
-                Toast.makeText(applicationContext,"Direction activité enfant", Toast.LENGTH_LONG).show()
-                intent = Intent(this, AdminFormActivity::class.java)
-                startActivity(intent)
-            }
+            R.id.btn_toConnection -> showConnectionForm()
+            R.id.btn_toInscription -> showUserForm()
         }
     }
 
