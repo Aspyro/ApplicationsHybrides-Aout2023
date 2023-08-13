@@ -8,6 +8,6 @@
     <string name="tview_email">Email :</string>
     <string name="tview_password">Mot de passe :</string>
 
-    <string name="app_shared_prefs">dev.aspyro.androidapplication_preferences.xml</string>
+    <string name="app_shared_prefs">dev.aspyro.androidapplication_preferences</string>
     <string name="first_time_opening">FIRST_TIME_OPENING_KEY</string>
 </resources>
