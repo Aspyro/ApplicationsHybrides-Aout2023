@@ -3,10 +3,11 @@
     <string name="hello_world">Hello World !</string>
     <string name="btn_toChild">Vers Activité enfant !</string>
     <string name="btn_formValidation">Enregistrer</string>
-    <string name="tview_inscriptionAdmin">Inscription Administrateur :</string>
-    <string name="tview_inscription">Inscription :</string>
-    <string name="tview_email">Email :</string>
-    <string name="tview_password">Mot de passe :</string>
+    <string name="btn_connectionValidation">Se connecter</string>
+    <string name="tview_inscriptionAdmin">Inscription Administrateur</string>
+    <string name="tview_inscription">Inscription</string>
+    <string name="tview_email">Email</string>
+    <string name="tview_password">Mot de passe</string>
 
     <string name="app_shared_prefs">dev.aspyro.androidapplication_preferences</string>
     <string name="first_time_opening">FIRST_TIME_OPENING_KEY</string>

@@ -21,7 +21,8 @@
         android:layout_marginTop="@dimen/margin_top"
         android:layout_marginBottom="@dimen/margin_top"
         android:text="@string/tview_connection"
-        android:textSize="@dimen/text_formTitle_size"/>
+        android:textSize="@dimen/text_formTitle_size"
+        />
 
     <TextView
         android:layout_width="match_parent"
@@ -30,7 +31,8 @@
         android:labelFor="@id/et_email_inscription"
         android:layout_marginTop="@dimen/margin_top"
         android:layout_marginLeft="@dimen/margin_side"
-        android:layout_marginRight="@dimen/margin_side"/>
+        android:layout_marginRight="@dimen/margin_side"
+        />
     <EditText
         android:id="@+id/et_email_inscription"
         android:layout_width="match_parent"
@@ -48,7 +50,8 @@
         android:labelFor="@id/et_password_inscription"
         android:layout_marginTop="@dimen/margin_top"
         android:layout_marginLeft="@dimen/margin_side"
-        android:layout_marginRight="@dimen/margin_side"/>
+        android:layout_marginRight="@dimen/margin_side"
+        />
     <EditText
         android:id="@+id/et_password_inscription"
         android:layout_width="match_parent"
@@ -66,7 +69,7 @@
         android:onClick="onFormClickManager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btn_formValidation"
+        android:text="@string/btn_connectionValidation"
         android:layout_marginLeft="@dimen/margin_side"
         android:layout_marginRight="@dimen/margin_side"
         android:layout_marginTop="@dimen/margin_top"

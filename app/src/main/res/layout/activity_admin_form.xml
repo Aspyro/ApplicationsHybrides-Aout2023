@@ -9,7 +9,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center_vertical">
 
         <TextView
             android:layout_width="wrap_content"
@@ -17,31 +18,47 @@
             android:layout_marginLeft="@dimen/margin_side"
             android:layout_marginRight="@dimen/margin_side"
             android:layout_marginTop="@dimen/margin_top"
+            android:layout_marginBottom="@dimen/margin_top"
             android:text="@string/tview_inscriptionAdmin"
-            android:textSize="@dimen/text_formTitle_size"/>
+            android:textSize="@dimen/text_formTitle_size"
+            />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/tview_email"
-            android:labelFor="@id/et_email_inscriptionAdmin"/>
+            android:labelFor="@id/et_email_inscriptionAdmin"
+            android:layout_marginTop="@dimen/margin_top"
+            android:layout_marginLeft="@dimen/margin_side"
+            android:layout_marginRight="@dimen/margin_side"
+            />
         <EditText
             android:id="@+id/et_email_inscriptionAdmin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
+            android:layout_marginBottom="@dimen/margin_top"
+            android:layout_marginLeft="@dimen/margin_side"
+            android:layout_marginRight="@dimen/margin_side"
             />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/tview_password"
-            android:labelFor="@id/et_password_inscriptionAdmin"/>
+            android:labelFor="@id/et_password_inscriptionAdmin"
+            android:layout_marginTop="@dimen/margin_top"
+            android:layout_marginLeft="@dimen/margin_side"
+            android:layout_marginRight="@dimen/margin_side"
+            />
         <EditText
             android:id="@+id/et_password_inscriptionAdmin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
+            android:layout_marginBottom="@dimen/margin_top"
+            android:layout_marginLeft="@dimen/margin_side"
+            android:layout_marginRight="@dimen/margin_side"
             />
 
 
@@ -52,6 +69,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/btn_formValidation"
+            android:layout_marginLeft="@dimen/margin_side"
+            android:layout_marginRight="@dimen/margin_side"
+            android:layout_marginTop="@dimen/margin_top"
+            android:layout_marginBottom="@dimen/margin_top"
             />
     </LinearLayout>
 
