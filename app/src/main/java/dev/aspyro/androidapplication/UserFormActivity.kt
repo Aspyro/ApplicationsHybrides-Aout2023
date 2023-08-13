@@ -39,7 +39,7 @@ class UserFormActivity : Activity() {
 
                 writeUser()
 
-                intent = Intent(this, ListingActivity::class.java)
+                intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
         }

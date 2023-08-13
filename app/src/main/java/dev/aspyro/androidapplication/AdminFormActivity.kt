@@ -39,7 +39,7 @@ class AdminFormActivity : Activity() {
 
                 writeAdmin()
 
-                intent = Intent(this, ListingActivity::class.java)
+                intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
             //Toast.makeText(applicationContext,"Direction activité enfant", Toast.LENGTH_LONG).show()
