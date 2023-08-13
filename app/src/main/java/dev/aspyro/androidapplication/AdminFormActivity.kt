@@ -2,11 +2,17 @@ package dev.aspyro.androidapplication
 
 import android.app.Activity
 import android.content.Intent
+import android.os.AsyncTask
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
+import androidx.room.Room
+import dev.aspyro.androidapplication.databaseroom.AppDatabase
+import dev.aspyro.androidapplication.databaseroom.User
+import dev.aspyro.androidapplication.databaseroom.UserRecord
 
 class AdminFormActivity : Activity() {
 
@@ -31,6 +37,7 @@ class AdminFormActivity : Activity() {
                 editor.putString("email_user", email_edit.text.toString())
                 editor.apply()
 
+                writeAdmin()
 
                 intent = Intent(this, ListingActivity::class.java)
                 startActivity(intent)
@@ -38,6 +45,28 @@ class AdminFormActivity : Activity() {
             //Toast.makeText(applicationContext,"Direction activité enfant", Toast.LENGTH_LONG).show()
         }
 
+    }
+
+    private fun writeAdmin() {
+
+        val admin = User(0, email_edit.text.toString(), password_edit.text.toString(), 10)
+        Log.i("Database attempt", "Trying to create an Admin :\n${admin.toString()}")
+        Toast.makeText(this, admin.toString(), Toast.LENGTH_LONG).show()
+
+        AsyncTask.execute{
+            val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "MyDatabase.db")
+                .build()
+
+            val dao = db.userDao()
+            try {
+                val registeredAdmin = UserRecord(admin.id, admin.email, admin.pwd, admin.access)
+                dao.insertUser(registeredAdmin)
+                Log.i("Database attempt", "Admin created")
+            }
+            catch (e: Exception) {
+                Log.i("ERROR", e.message.toString())
+            }
+        }
     }
 
     override fun onStart() {
