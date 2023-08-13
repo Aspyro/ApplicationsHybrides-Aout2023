@@ -47,7 +47,7 @@ class UserFormActivity : Activity() {
 
     private fun writeUser() {
 
-        val u = User(0, email_edit.text.toString(), password_edit.text.toString())
+        val u = User(0, email_edit.text.toString(), password_edit.text.toString(), 1)
         Log.i("Database attempt", "Tried to create a user : ${u.toString()}")
         Toast.makeText(this, u.toString(), Toast.LENGTH_LONG).show()
 
@@ -57,7 +57,7 @@ class UserFormActivity : Activity() {
 
             val dao = db.userDao()
             try {
-                val registeredUser = UserRecord(u.id, u.email, u.pwd)
+                val registeredUser = UserRecord(u.id, u.email, u.pwd, u.access)
                 dao.insertUser(registeredUser)
                 Log.i("test", "try catch dans async")
             }
