@@ -64,7 +64,7 @@ class AdminFormActivity : Activity() {
                 val db = Room.databaseBuilder(
                     applicationContext,
                     AppDatabase::class.java,
-                    "MyDatabase.db"
+                    getString(R.string.DBName)
                 )
                     .build()
 

@@ -57,7 +57,7 @@ class UserFormActivity : Activity() {
 
             // Création de l'utilisateur dans la base de données
             AsyncTask.execute {
-                val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "MyDatabase.db")
+                val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, getString(R.string.DBName))
                     .build()
 
                 val dao = db.userDao()

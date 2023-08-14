@@ -34,7 +34,7 @@ class ConnectionActivity : Activity() {
 
                 Log.i("User Connection", "Trying to fetch data for ${connectingUser.email.toString()}")
 
-                val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "MyDatabase.db")
+                val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, getString(R.string.DBName))
                     .allowMainThreadQueries().build()
                 var connectedUser: UserRecord
                 val dao = db.userDao()
