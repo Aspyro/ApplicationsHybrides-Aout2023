@@ -15,4 +15,6 @@
     <string name="btn_toInscription">S\'inscrire</string>
     <string name="tview_connection">Connexion</string>
     <string name="DBName">MyDatabase.db</string>
+    <string name="btn_manageUsers">Modifier Accès Utilisateurs</string>
+    <string name="btn_manageAssets">Modifier Matériel</string>
 </resources>

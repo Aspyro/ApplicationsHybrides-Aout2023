@@ -10,15 +10,42 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/listing_margin_side"
-        android:paddingRight="@dimen/listing_margin_side"
-        android:paddingTop="@dimen/listing_margin_side"
-        android:paddingBottom="@dimen/listing_margin_side">
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/margin_side"
+            >
+
+            <Button
+                android:id="@+id/btn_manageAssets"
+                android:onClick="onListingClickManager"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_manageAssets"
+                android:layout_marginVertical="@dimen/margin_top"
+                android:layout_marginHorizontal="@dimen/margin_top"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/btn_manageUsers"
+                android:onClick="onListingClickManager"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_manageUsers"
+                android:layout_marginVertical="@dimen/margin_top"
+                android:layout_marginHorizontal="@dimen/margin_top"
+                android:layout_weight="1"/>
+
+
+        </LinearLayout>
 
         <ListView
             android:id="@+id/lv_listingProduit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            />
 
     </LinearLayout>
 
