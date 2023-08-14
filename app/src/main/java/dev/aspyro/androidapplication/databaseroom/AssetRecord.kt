@@ -9,5 +9,5 @@ data class AssetRecord(
     @ColumnInfo(name = "brand") var brand: String = "",
     @ColumnInfo(name = "model") var model: String = "",
     @ColumnInfo(name = "reference") var reference: String = "",
-    @ColumnInfo(name = "status") var status: String = "",
+    @ColumnInfo(name = "status") var status: String = ""
 )

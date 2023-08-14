@@ -6,13 +6,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Toast
 import androidx.room.Room
 import dev.aspyro.androidapplication.databaseroom.AppDatabase
 import dev.aspyro.androidapplication.databaseroom.AssetRecord
-import dev.aspyro.androidapplication.databaseroom.UserRecord
 
 class ListingActivity : Activity() {
 
@@ -51,14 +49,20 @@ class ListingActivity : Activity() {
         }
 
 
-        val tmptabdata = arrayOf("Item 1", "Item 2", "Item 3", "Item 4", "Item 5")
+        val tmptabdata: ArrayList<AssetRecord> = ArrayList()
+        tmptabdata.addAll(arrayListOf(AssetRecord(0, "tablette", "Samsung", "oui", "aaaab", "emprunté"),
+            AssetRecord(0, "smartphone", "Samsung", "non", "aaabb", "disponible"),
+            AssetRecord(0, "smartphone", "Lexus", "machin", "aabbb", "emprunté"),
+            AssetRecord(0, "tablette", "Google", "Pixel Omega XL", "abbbb", "emprunté"),
+            AssetRecord(0, "smartphone", "Nokia", "celuila", "bbbbb", "disponible"),
+            AssetRecord(0, "tablette", "Apple", "Pear", "bbbbc", "emprunté")))
         //var adapteur = ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, tabdata)
-        val adapteur = ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, tmptabdata)
+        val adapteur = MyListViewAdapter(this, tmptabdata)
 
         val listView: ListView = findViewById(R.id.lv_listingProduit)
         listView.adapter = adapteur
         listView.onItemClickListener = AdapterView.OnItemClickListener {parent, view, position, id ->
-            Toast.makeText(this@ListingActivity, position.toString(), Toast.LENGTH_LONG).show()
+            Toast.makeText(this@ListingActivity, position.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 
