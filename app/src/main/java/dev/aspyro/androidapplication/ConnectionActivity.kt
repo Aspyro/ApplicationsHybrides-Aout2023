@@ -2,14 +2,11 @@ package dev.aspyro.androidapplication
 
 import android.app.Activity
 import android.content.Intent
-import android.os.AsyncTask
 import android.os.Bundle
-import android.os.Looper
 import android.preference.PreferenceManager
 import android.util.Log
 import android.view.View
 import android.widget.EditText
-import android.widget.Toast
 import androidx.room.Room
 import dev.aspyro.androidapplication.databaseroom.AppDatabase
 import dev.aspyro.androidapplication.databaseroom.User
@@ -36,41 +33,39 @@ class ConnectionActivity : Activity() {
                 val connectingUser = User(0, email_edit.text.toString(), password_edit.text.toString(), 1)
 
                 Log.i("User Connection", "Trying to fetch data for ${connectingUser.email.toString()}")
-                AsyncTask.execute {
-                    Looper.prepare()
-                    val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "MyDatabase.db")
-                        .build()
-                    var connectedUser = UserRecord()
-                    val dao = db.userDao()
+
+                val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "MyDatabase.db")
+                    .allowMainThreadQueries().build()
+                var connectedUser: UserRecord
+                val dao = db.userDao()
+
+                if(dao.getCount(connectingUser.email, connectingUser.pwd) > 0)
+                {
                     try {
                         connectedUser = dao.get(connectingUser.email, connectingUser.pwd)
-                    }
-                    catch (e: Exception) {
-                        Log.i("ERROR", e.message.toString())
-                    }
 
-                    if (connectedUser == null) {
-                        Toast.makeText(this,
-                            "L'utilisateur avec lequel vous souhaitez vous connecter n'existe pas. Veuillez réessayer.",
-                            Toast.LENGTH_LONG)
-                            .show()
-                        intent = Intent(this, ConnectionActivity::class.java)
-                        startActivity(intent)
-                    }
-                    else {
-                        // Sauvegarder les informations de connexion
                         val sharedPreferences =
                             PreferenceManager.getDefaultSharedPreferences(applicationContext)
                         val editor = sharedPreferences.edit()
 
-                        editor.putString("connectedUser", connectedUser.toString())
+                        editor.putString("connectedUserId", connectedUser.id.toString())
+                        editor.putString("connectedUserEmail", connectedUser.email.toString())
+                        editor.putString("connectedUserAccess", connectedUser.access.toString())
                         editor.apply()
+
+                        // Lancer la vue adaptée selon les droits de l'utilisateur
+                        intent = Intent(this, ListingActivity::class.java)
+                        startActivity(intent)
+                    }
+                    catch (e: Exception) {
+                        Log.i("ERROR", e.message.toString())
                     }
                 }
+                else {
+                    password_edit.setError("L'utilisateur avec lequel vous souhaitez vous connecter n'existe pas. Veuillez réessayer.")
+                }
 
-                // Lancer la vue adaptée selon les droits de l'utilisateur
-                intent = Intent(this, ListingActivity::class.java)
-                startActivity(intent)
+
             }
         }
     }

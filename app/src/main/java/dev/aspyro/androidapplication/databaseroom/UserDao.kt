@@ -11,6 +11,9 @@ interface UserDao {
     @Query("SELECT * FROM UserTable WHERE (email = :email AND pwd = :password)")
     fun get(email: String, password: String): UserRecord
 
+    @Query("SELECT COUNT() FROM UserTable WHERE (email = :email AND pwd = :password)")
+    fun getCount(email: String, password: String): Int
+
     @Insert
     fun insertUser(vararg listCategories: UserRecord)
 
