@@ -4,7 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
+import android.util.Patterns
 import android.view.View
 import android.widget.EditText
 import androidx.room.Room
@@ -27,38 +29,64 @@ class AdminFormActivity : Activity() {
     fun onAdminFormClickManager(v : View) {
         when (v.id) {
             R.id.btn_adminFormValidation -> {
-                writeAdmin()
-
-                intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                if(writeAdmin()) {
+                    intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                }
             }
         }
 
     }
 
-    private fun writeAdmin() {
+    private fun writeAdmin() : Boolean {
 
         // Récupération des informations
         val adminEmail = emailEdit.text.toString()
         val adminpassword = passwordEdit.text.toString()
+        val adminAccess = 10
 
-        Log.i("Admin Creation Form", "Trying to create an Admin :\n$adminEmail - $adminpassword")
+        if(!isEmail(adminEmail)) {
+            emailEdit.error = "Entrez une adresse email valide."
+            return false
+        }
+        else if (!isPasswordLongEnough(adminpassword)) {
+            passwordEdit.error = "Votre mot de passe doit faire au moins 4 caractères."
+            return false
+        }
+        else {
+            Log.i(
+                "Admin Creation Form",
+                "Trying to create an Admin :\n$adminEmail - $adminpassword"
+            )
 
-        // Création de l'administrateur dans la base de données
-        AsyncTask.execute{
-            val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "MyDatabase.db")
-                .build()
+            // Création de l'administrateur dans la base de données
+            AsyncTask.execute {
+                val db = Room.databaseBuilder(
+                    applicationContext,
+                    AppDatabase::class.java,
+                    "MyDatabase.db"
+                )
+                    .build()
 
-            val dao = db.userDao()
-            try {
-                val registeredAdmin = UserRecord(0, adminEmail, adminpassword, 10)
-                dao.insertUser(registeredAdmin)
-                Log.i("Admin Creation Form", "Admin created")
-            }
-            catch (e: Exception) {
-                Log.i("Admin Creation Form", e.message.toString())
+                val dao = db.userDao()
+                try {
+                    val registeredAdmin = UserRecord(0, adminEmail, adminpassword, adminAccess)
+                    dao.insertUser(registeredAdmin)
+                    Log.i("Admin Creation Form", "Admin created")
+                } catch (e: Exception) {
+                    Log.i("Admin Creation Form", e.message.toString())
+                }
             }
         }
+        return true
+    }
+
+    private fun isPasswordLongEnough(adminPassword: String) : Boolean {
+        return adminPassword.length >= 4
+    }
+
+    private fun isEmail(adminEmail: String): Boolean {
+        return (!TextUtils.isEmpty(adminEmail) && Patterns.EMAIL_ADDRESS.matcher(adminEmail).matches())
     }
 
     override fun onStart() {
