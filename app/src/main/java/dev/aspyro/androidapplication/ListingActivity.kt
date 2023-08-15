@@ -90,7 +90,7 @@ class ListingActivity : Activity() {
             R.id.btn_manageAssets -> {
                 when(editTextLayout.visibility) {
                     View.VISIBLE -> {
-                        val isAssetUpdated = updateAsset(getAsset())
+                        val isAssetUpdated = updateAsset(getAsset(editTextId.text.toString().toInt()))
 
                         if(isAssetUpdated) {
                             editTextLayout.visibility = View.GONE
@@ -183,9 +183,9 @@ class ListingActivity : Activity() {
         getString(R.string.DBName)
     ).allowMainThreadQueries().build()
 
-    private fun getAsset(): AssetRecord {
+    private fun getAsset(assetId : Int = 0): AssetRecord {
         Log.i("ListingActivity", "Get asset")
-        return AssetRecord(editTextId.text.toString().toInt(),
+        return AssetRecord(assetId,
             editTextHardware.text.toString(),
             editTextBrand.text.toString(),
             editTextModel.text.toString(),
