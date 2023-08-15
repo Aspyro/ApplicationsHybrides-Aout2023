@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.EditText
 import androidx.room.Room
 import dev.aspyro.androidapplication.databaseroom.AppDatabase
+import dev.aspyro.androidapplication.databaseroom.User
 import dev.aspyro.androidapplication.databaseroom.UserRecord
 
 class UserFormActivity : Activity() {
@@ -53,22 +54,28 @@ class UserFormActivity : Activity() {
             return false
         }
         else {
+            val registeringUser = User(0, userEmail, userPassword, userAccess)
+
             Log.i("User Creation Form", "Triying to create a User :\n$userEmail - $userPassword")
 
             // Création de l'utilisateur dans la base de données
-            AsyncTask.execute {
-                val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, getString(R.string.DBName))
-                    .build()
 
-                val dao = db.userDao()
+            val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, getString(R.string.DBName))
+                .allowMainThreadQueries().build()
+
+            val registeredUser : UserRecord
+            val dao = db.userDao()
+            if(dao.getCount(registeringUser.email, registeringUser.pwd) == 0) {
                 try {
-                    val registeredUser = UserRecord(0, userEmail, userPassword, userAccess)
+                    registeredUser = UserRecord(0, userEmail, userPassword, userAccess)
                     dao.insertUser(registeredUser)
                     Log.i("User Creation Form", "User created")
-                }
-                catch (e: Exception) {
+                } catch (e: Exception) {
                     Log.i("User Creation Form", e.message.toString())
                 }
+            }
+            else {
+                passwordEdit.error = "Votre utilisateur n'est pas valide. Veuillez entrer d'autres valeurs."
             }
         }
         return true
