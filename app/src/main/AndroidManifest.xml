@@ -16,9 +16,6 @@
             android:name=".ManageUsersActivity"
             android:exported="false" />
         <activity
-            android:name=".ManageAssetsActivity"
-            android:exported="false" />
-        <activity
             android:name=".ConnectionActivity"
             android:exported="false" />
         <activity
