@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.EditText
 import androidx.room.Room
 import dev.aspyro.androidapplication.databaseroom.AppDatabase
+import dev.aspyro.androidapplication.databaseroom.User
 import dev.aspyro.androidapplication.databaseroom.UserRecord
 
 class AdminFormActivity : Activity() {
@@ -54,29 +55,36 @@ class AdminFormActivity : Activity() {
             return false
         }
         else {
+            val registeringAdmin = User(0, adminEmail, adminpassword, adminAccess)
+
             Log.i(
                 "Admin Creation Form",
                 "Trying to create an Admin :\n$adminEmail - $adminpassword"
             )
 
             // Création de l'administrateur dans la base de données
-            AsyncTask.execute {
-                val db = Room.databaseBuilder(
-                    applicationContext,
-                    AppDatabase::class.java,
-                    getString(R.string.DBName)
-                )
-                    .build()
 
-                val dao = db.userDao()
+            val db = Room.databaseBuilder(
+                applicationContext,
+                AppDatabase::class.java,
+                getString(R.string.DBName)
+            )
+                .allowMainThreadQueries().build()
+
+            val registeredAdmin: UserRecord
+            val dao = db.userDao()
+            if(dao.getCount(registeringAdmin.email, registeringAdmin.pwd) == 0) {
                 try {
-                    val registeredAdmin = UserRecord(0, adminEmail, adminpassword, adminAccess)
+                    registeredAdmin = UserRecord(0, adminEmail, adminpassword, adminAccess)
                     dao.insertUser(registeredAdmin)
                     Log.i("Admin Creation Form", "Admin created")
                 } catch (e: Exception) {
                     Log.i("Admin Creation Form", e.message.toString())
                 }
+            } else {
+                passwordEdit.error = "Votre utilisateur n'est pas valide. Veuillez entrer d'autres valeurs."
             }
+
         }
         return true
     }
