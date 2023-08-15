@@ -16,28 +16,113 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/margin_side"
+            android:orientation="vertical"
             >
-
-            <Button
-                android:id="@+id/btn_manageAssets"
-                android:onClick="onListingClickManager"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_manageAssets"
-                android:layout_marginVertical="@dimen/margin_top"
-                android:layout_marginHorizontal="@dimen/margin_top"
-                android:layout_weight="1" />
+                android:orientation="horizontal"
+                >
+                <Button
+                    android:id="@+id/btn_manageUsers"
+                    android:onClick="onListingClickManager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_manageUsers"
+                    android:layout_marginVertical="@dimen/margin_top"
+                    android:layout_marginHorizontal="@dimen/margin_top"
+                    />
+            </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_manageUsers"
-                android:onClick="onListingClickManager"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_manageUsers"
-                android:layout_marginVertical="@dimen/margin_top"
-                android:layout_marginHorizontal="@dimen/margin_top"
-                android:layout_weight="1"/>
+                android:orientation="horizontal"
+                >
+                <Button
+                    android:id="@+id/btn_manageAssets"
+                    android:onClick="onListingClickManager"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_manageAssets"
+                    android:layout_marginVertical="@dimen/margin_top"
+                    android:layout_marginHorizontal="@dimen/margin_top"
+                    android:layout_weight="1" />
 
+                <Button
+                    android:id="@+id/btn_addAsset"
+                    android:onClick="onListingClickManager"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_addAssets"
+                    android:layout_marginVertical="@dimen/margin_top"
+                    android:layout_marginHorizontal="@dimen/margin_top"
+                    android:layout_weight="1"
+                    />
+            </LinearLayout>
+
+<LinearLayout
+    android:id="@+id/linear_et_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="gone"
+    android:orientation="horizontal"
+    >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="1">
+        <EditText
+            android:id="@+id/et_assetId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number">
+
+        </EditText>
+        <EditText
+            android:id="@+id/et_assetReference"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text">
+
+        </EditText>
+        <EditText
+            android:id="@+id/et_assetStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text">
+
+        </EditText>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="1">
+        <EditText
+            android:id="@+id/et_assetHardware"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text">
+
+        </EditText>
+        <EditText
+            android:id="@+id/et_assetBrand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text">
+
+        </EditText>
+        <EditText
+            android:id="@+id/et_assetModel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text">
+
+        </EditText>
+    </LinearLayout>
+</LinearLayout>
 
         </LinearLayout>
 

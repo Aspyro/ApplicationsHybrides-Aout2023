@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
-import dev.aspyro.androidapplication.databaseroom.AssetRecord
+import dev.aspyro.androidapplication.databaseroom.Asset
 
-class MyListViewAdapter(private val context: Context, private val arrayList: ArrayList<AssetRecord>) : BaseAdapter() {
+class MyListViewAdapter(private val context: Context, private val arrayList: ArrayList<Asset>) : BaseAdapter() {
 
     private lateinit var assetId: TextView
     private lateinit var assetHardware: TextView

@@ -1,15 +1,17 @@
 package dev.aspyro.androidapplication
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
+import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.Toast
 import androidx.room.Room
 import dev.aspyro.androidapplication.databaseroom.AppDatabase
+import dev.aspyro.androidapplication.databaseroom.Asset
 import dev.aspyro.androidapplication.databaseroom.AssetRecord
 
 class ListingActivity : Activity() {
@@ -17,9 +19,26 @@ class ListingActivity : Activity() {
     lateinit var tabdata: List<AssetRecord>
         private set
 
+    lateinit var editTextLayout : LinearLayout
+    lateinit var editTextId : EditText
+    lateinit var editTextReference : EditText
+    lateinit var editTextStatus : EditText
+    lateinit var editTextHardware : EditText
+    lateinit var editTextBrand : EditText
+    lateinit var editTextModel : EditText
+    var modifiedItemId : Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_listing)
+
+        editTextLayout = findViewById(R.id.linear_et_layout)
+        editTextId = findViewById(R.id.et_assetId)
+        editTextReference = findViewById(R.id.et_assetReference)
+        editTextStatus = findViewById(R.id.et_assetStatus)
+        editTextHardware = findViewById(R.id.et_assetHardware)
+        editTextBrand = findViewById(R.id.et_assetBrand)
+        editTextModel = findViewById(R.id.et_assetModel)
 
         loadUI()
         loadData()
@@ -32,12 +51,7 @@ class ListingActivity : Activity() {
     }
 
     private fun loadData() {
-        val db = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java,
-            getString(R.string.DBName)
-        )
-            .allowMainThreadQueries().build()
+        val db = getDb()
 
         Log.i("Listing Activity", "Fetch Data")
 
@@ -48,35 +62,135 @@ class ListingActivity : Activity() {
             Log.i("Listing Activity", e.message.toString())
         }
 
+        var dataArray : ArrayList<Asset> = ArrayList()
+        for(data in tabdata) {
+            dataArray.add(Asset(data.id, data.hardware, data.brand, data.model, data.reference, data.status))
+        }
 
-        val tmptabdata: ArrayList<AssetRecord> = ArrayList()
-        tmptabdata.addAll(arrayListOf(AssetRecord(0, "tablette", "Samsung", "oui", "aaaab", "emprunté"),
-            AssetRecord(0, "smartphone", "Samsung", "non", "aaabb", "disponible"),
-            AssetRecord(0, "smartphone", "Lexus", "machin", "aabbb", "emprunté"),
-            AssetRecord(0, "tablette", "Google", "Pixel Omega XL", "abbbb", "emprunté"),
-            AssetRecord(0, "smartphone", "Nokia", "celuila", "bbbbb", "disponible"),
-            AssetRecord(0, "tablette", "Apple", "Pear", "bbbbc", "emprunté")))
-        //var adapteur = ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, tabdata)
-        val adapteur = MyListViewAdapter(this, tmptabdata)
+        val adapteur = MyListViewAdapter(this, dataArray)
 
         val listView: ListView = findViewById(R.id.lv_listingProduit)
         listView.adapter = adapteur
-        listView.onItemClickListener = AdapterView.OnItemClickListener {parent, view, position, id ->
-            Toast.makeText(this@ListingActivity, position.toString(), Toast.LENGTH_SHORT).show()
+
+        listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+            if(editTextLayout.visibility == View.VISIBLE) {
+                editTextId.setText(dataArray[position].id.toString())
+                editTextReference.setText(dataArray[position].reference.toString())
+                editTextStatus.setText(dataArray[position].status.toString())
+                editTextHardware.setText(dataArray[position].hardware.toString())
+                editTextBrand.setText(dataArray[position].brand.toString())
+                editTextModel.setText(dataArray[position].model.toString())
+                modifiedItemId = dataArray[position].id
+            }
         }
     }
 
     fun onListingClickManager(view: View) {
         when(view.id) {
             R.id.btn_manageAssets -> {
-                intent = Intent(this, ManageAssetsActivity::class.java)
-                startActivity(intent)
+                when(editTextLayout.visibility) {
+                    View.VISIBLE -> {
+                        val isAssetUpdated = updateAsset(getAsset())
+
+                        if(isAssetUpdated) {
+                            editTextLayout.visibility = View.GONE
+                            Toast.makeText(applicationContext, "Apareil mis à jour", Toast.LENGTH_LONG).show()
+                            loadData()
+                        }
+                        else {
+                            Toast.makeText(applicationContext, "L'appareil n'a pas pu être mis à jour. Veuillez réessayer.",
+                                Toast.LENGTH_LONG).show()
+                        }
+                    }
+                    View.GONE -> {
+                        resetEditTexts()
+                    }
+
+                    View.INVISIBLE -> { }
+                }
             }
             R.id.btn_manageUsers -> {
-                intent = Intent(this, ManageUsersActivity::class.java)
-                startActivity(intent)
+
+            }
+            R.id.btn_addAsset -> {
+                when(editTextLayout.visibility) {
+                    View.VISIBLE -> {
+                        val isAssetAdded = addAsset(getAsset())
+                        if (isAssetAdded) {
+                            editTextLayout.visibility = View.GONE
+                            Toast.makeText(applicationContext, "Apareil ajouté", Toast.LENGTH_LONG).show()
+                            loadData()
+                        }
+                        else {
+                            Toast.makeText(applicationContext, "L'appareil n'a pas pu être ajouté. Veuillez réessayer",
+                                Toast.LENGTH_LONG).show()
+                        }
+                    }
+                    View.GONE -> {
+                        resetEditTexts()
+                    }
+                    View.INVISIBLE -> { }
+                }
+
+
             }
         }
+    }
+
+    private fun resetEditTexts() {
+        editTextId.text = null
+        editTextReference.text = null
+        editTextStatus.text = null
+        editTextHardware.text = null
+        editTextBrand.text = null
+        editTextModel.text = null
+        editTextLayout.visibility = View.VISIBLE
+    }
+
+    private fun addAsset(asset: AssetRecord): Boolean {
+        Log.i("ListingActivity", "Add new asset")
+        val db = getDb()
+
+        val dao = db.assetDao()
+
+        try {
+            dao.insertAsset(asset)
+        } catch (e: Exception){
+            Log.i("Listing Activity", e.message.toString())
+            return false
+        }
+        return true
+    }
+
+    private fun updateAsset(asset : AssetRecord) : Boolean {
+        Log.i("ListingActivity", "Update asset")
+        val db = getDb()
+
+        val dao = db.assetDao()
+        try {
+            dao.updateAsset(asset)
+        } catch (e: Exception) {
+            Log.i("Listing Activity", e.message.toString())
+            return false
+        }
+
+        return true
+    }
+
+    private fun getDb() = Room.databaseBuilder(
+        applicationContext,
+        AppDatabase::class.java,
+        getString(R.string.DBName)
+    ).allowMainThreadQueries().build()
+
+    private fun getAsset(): AssetRecord {
+        Log.i("ListingActivity", "Get asset")
+        return AssetRecord(editTextId.text.toString().toInt(),
+            editTextHardware.text.toString(),
+            editTextBrand.text.toString(),
+            editTextModel.text.toString(),
+            editTextReference.text.toString(),
+            editTextStatus.text.toString())
     }
 
     override fun onStart() {

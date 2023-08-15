@@ -17,4 +17,5 @@
     <string name="DBName">MyDatabase.db</string>
     <string name="btn_manageUsers">Modifier Accès Utilisateurs</string>
     <string name="btn_manageAssets">Modifier Matériel</string>
+    <string name="btn_addAssets">Ajouter matériel</string>
 </resources>
