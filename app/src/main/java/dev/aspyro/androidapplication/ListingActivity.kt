@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
+import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.ListView
@@ -20,12 +21,14 @@ class ListingActivity : Activity() {
         private set
 
     lateinit var editTextLayout : LinearLayout
+    lateinit var manageUsersLayout : LinearLayout
     lateinit var editTextId : EditText
     lateinit var editTextReference : EditText
     lateinit var editTextStatus : EditText
     lateinit var editTextHardware : EditText
     lateinit var editTextBrand : EditText
     lateinit var editTextModel : EditText
+    lateinit var btnAddAsset : Button
     var modifiedItemId : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +43,9 @@ class ListingActivity : Activity() {
         editTextBrand = findViewById(R.id.et_assetBrand)
         editTextModel = findViewById(R.id.et_assetModel)
 
+        manageUsersLayout = findViewById(R.id.ll_manageusers)
+        btnAddAsset = findViewById(R.id.btn_addAsset)
+
         loadUI()
         loadData()
 
@@ -48,6 +54,15 @@ class ListingActivity : Activity() {
 
     private fun loadUI() {
         // Afficher les boutons de gestion des Assets et des Utilisateurs si droit accès suffisants
+        val sharedPreferences = getSharedPreferences(getString(R.string.app_shared_prefs), MODE_PRIVATE)
+
+        val accessValue = sharedPreferences.getString("connectedUserAccess", "1")?.toInt()
+
+        if(accessValue == 1) {
+            btnAddAsset.isEnabled = false
+            btnAddAsset.visibility = View.INVISIBLE
+            manageUsersLayout.visibility = View.GONE
+        }
     }
 
     private fun loadData() {
