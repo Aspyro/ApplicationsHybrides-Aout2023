@@ -62,6 +62,10 @@ class ListingActivity : Activity() {
             btnAddAsset.isEnabled = false
             btnAddAsset.visibility = View.INVISIBLE
             manageUsersLayout.visibility = View.GONE
+            editTextHardware.isEnabled = false
+            editTextReference.isEnabled = false
+            editTextBrand.isEnabled = false
+            editTextModel.isEnabled = false
         }
     }
 
