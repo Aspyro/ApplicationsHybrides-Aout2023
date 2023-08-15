@@ -18,4 +18,8 @@
     <string name="btn_manageUsers">Modifier Accès Utilisateurs</string>
     <string name="btn_manageAssets">Modifier Matériel</string>
     <string name="btn_addAssets">Ajouter matériel</string>
+    <string name="edittext_id">Id</string>
+    <string name="edittext_reference">Référence</string>
+    <string name="edittext_brand">Marque</string>
+    <string name="edittext_model">Modèle</string>
 </resources>

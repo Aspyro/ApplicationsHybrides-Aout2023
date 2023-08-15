@@ -66,7 +66,7 @@
     android:id="@+id/linear_et_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:visibility="gone"
+    android:visibility="visible"
     android:orientation="horizontal"
     >
     <LinearLayout
@@ -77,30 +77,26 @@
         <EditText
             android:id="@+id/et_assetId"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:inputType="number"
-            android:enabled="false">
+            android:enabled="false"
+            android:hint="@string/edittext_id">
 
         </EditText>
         <EditText
             android:id="@+id/et_assetReference"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text">
+            android:layout_height="40dp"
+            android:inputType="text"
+            android:hint="@string/edittext_reference">
 
         </EditText>
         <Spinner
             android:id="@+id/sp_assetStatus"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:entries="@array/statuses"/>
-        <!--<EditText
-            android:id="@+id/et_assetStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text">
 
-        </EditText>-->
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -110,27 +106,23 @@
         <Spinner
             android:id="@+id/sp_assetHardware"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:entries="@array/hardwares"/>
-        <!--<EditText
-            android:id="@+id/et_assetHardware"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text">
 
-        </EditText>-->
         <EditText
             android:id="@+id/et_assetBrand"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text">
+            android:layout_height="40dp"
+            android:inputType="text"
+            android:hint="@string/edittext_brand">
 
         </EditText>
         <EditText
             android:id="@+id/et_assetModel"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text">
+            android:layout_height="40dp"
+            android:inputType="text"
+            android:hint="@string/edittext_model">
 
         </EditText>
     </LinearLayout>
