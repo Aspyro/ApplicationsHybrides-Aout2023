@@ -89,26 +89,36 @@
             android:inputType="text">
 
         </EditText>
-        <EditText
+        <Spinner
+            android:id="@+id/sp_assetStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/statuses"/>
+        <!--<EditText
             android:id="@+id/et_assetStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text">
 
-        </EditText>
+        </EditText>-->
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_weight="1">
-        <EditText
+        <Spinner
+            android:id="@+id/sp_assetHardware"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/hardwares"/>
+        <!--<EditText
             android:id="@+id/et_assetHardware"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text">
 
-        </EditText>
+        </EditText>-->
         <EditText
             android:id="@+id/et_assetBrand"
             android:layout_width="match_parent"

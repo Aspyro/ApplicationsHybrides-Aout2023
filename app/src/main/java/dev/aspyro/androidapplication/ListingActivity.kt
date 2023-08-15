@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.ListView
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.room.Room
 import dev.aspyro.androidapplication.databaseroom.AppDatabase
@@ -24,8 +25,8 @@ class ListingActivity : Activity() {
     lateinit var manageUsersLayout : LinearLayout
     lateinit var editTextId : EditText
     lateinit var editTextReference : EditText
-    lateinit var editTextStatus : EditText
-    lateinit var editTextHardware : EditText
+    lateinit var spinnerStatus : Spinner
+    lateinit var spinnerHardware : Spinner
     lateinit var editTextBrand : EditText
     lateinit var editTextModel : EditText
     lateinit var btnAddAsset : Button
@@ -38,8 +39,8 @@ class ListingActivity : Activity() {
         editTextLayout = findViewById(R.id.linear_et_layout)
         editTextId = findViewById(R.id.et_assetId)
         editTextReference = findViewById(R.id.et_assetReference)
-        editTextStatus = findViewById(R.id.et_assetStatus)
-        editTextHardware = findViewById(R.id.et_assetHardware)
+        spinnerStatus = findViewById(R.id.sp_assetStatus)
+        spinnerHardware = findViewById(R.id.sp_assetHardware)
         editTextBrand = findViewById(R.id.et_assetBrand)
         editTextModel = findViewById(R.id.et_assetModel)
 
@@ -62,7 +63,7 @@ class ListingActivity : Activity() {
             btnAddAsset.isEnabled = false
             btnAddAsset.visibility = View.INVISIBLE
             manageUsersLayout.visibility = View.GONE
-            editTextHardware.isEnabled = false
+            spinnerHardware.isEnabled = false
             editTextReference.isEnabled = false
             editTextBrand.isEnabled = false
             editTextModel.isEnabled = false
@@ -95,8 +96,16 @@ class ListingActivity : Activity() {
             if(editTextLayout.visibility == View.VISIBLE) {
                 editTextId.setText(dataArray[position].id.toString())
                 editTextReference.setText(dataArray[position].reference.toString())
-                editTextStatus.setText(dataArray[position].status.toString())
-                editTextHardware.setText(dataArray[position].hardware.toString())
+                when(dataArray[position].status.toString()) {
+                    "Disponible" -> spinnerStatus.setSelection(0)
+                    "Emprunté" -> spinnerStatus.setSelection(1)
+                    else -> spinnerStatus.setSelection(0)
+                }
+                when(dataArray[position].hardware.toString()) {
+                    "Smartphone" -> spinnerHardware.setSelection(0)
+                    "Tablette" -> spinnerHardware.setSelection(1)
+                    else -> spinnerHardware.setSelection(0)
+                }
                 editTextBrand.setText(dataArray[position].brand.toString())
                 editTextModel.setText(dataArray[position].model.toString())
                 modifiedItemId = dataArray[position].id
@@ -159,8 +168,8 @@ class ListingActivity : Activity() {
     private fun resetEditTexts() {
         editTextId.text = null
         editTextReference.text = null
-        editTextStatus.text = null
-        editTextHardware.text = null
+        spinnerHardware.setSelection(0)
+        spinnerStatus.setSelection(0)
         editTextBrand.text = null
         editTextModel.text = null
         editTextLayout.visibility = View.VISIBLE
@@ -205,11 +214,11 @@ class ListingActivity : Activity() {
     private fun getAsset(assetId : Int = 0): AssetRecord {
         Log.i("ListingActivity", "Get asset")
         return AssetRecord(assetId,
-            editTextHardware.text.toString(),
+            spinnerHardware.selectedItem.toString(),
             editTextBrand.text.toString(),
             editTextModel.text.toString(),
             editTextReference.text.toString(),
-            editTextStatus.text.toString())
+            spinnerStatus.selectedItem.toString())
     }
 
     override fun onStart() {

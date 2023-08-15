@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="hardwares">
+        <item>Smartphone</item>
+        <item>Tablette</item>
+    </string-array>
+    <string-array name="statuses">
+        <item name="disponible">Disponible</item>
+        <item name="emprunte">Emprunté</item>
+    </string-array>
+</resources>
